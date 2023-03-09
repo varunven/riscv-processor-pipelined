@@ -37,7 +37,8 @@ module control	(
 				end
 				3'b010: begin
 				data_write_byte = 4'b1111; // SW
-			 end
+			 	end
+				default: begin end
 			endcase			
 		end
 		
@@ -72,76 +73,76 @@ module control	(
 	end
 endmodule
 
-module control_testbench ();
-	logic clk;
-	logic [31:0] instruction_read;
-	logic signed [31:0] imm;
-	logic register_write_valid;
-	logic [3:0] data_write_byte;
+// module control_testbench ();
+// 	logic clk;
+// 	logic [31:0] instruction_read;
+// 	logic signed [31:0] imm;
+// 	logic register_write_valid;
+// 	logic [3:0] data_write_byte;
 
-	// Instantiating modules
-	control dut (.clk, .instruction_read, .imm, .register_write_valid, .data_write_byte);
+// 	// Instantiating modules
+// 	control dut (.clk, .instruction_read, .imm, .register_write_valid, .data_write_byte);
 
-	parameter CLOCK_PERIOD=100;
- 	initial begin
- 		clk <= 0;
- 		forever #(CLOCK_PERIOD/2) clk <= ~clk;
- 	end
+// 	parameter CLOCK_PERIOD=100;
+//  	initial begin
+//  		clk <= 0;
+//  		forever #(CLOCK_PERIOD/2) clk <= ~clk;
+//  	end
 	
-	initial begin	
-		// R type
-		instruction_read = 32'h00940333; #50
-		instruction_read = 32'h413903b3; #50
-		instruction_read = 32'h015a12b3; #50
-		instruction_read = 32'h017b2e33; #50
-		instruction_read = 32'h019c4eb3; #50
-		instruction_read = 32'h013a53b3; #50
-		instruction_read = 32'h4154de33; #50
-		instruction_read = 32'h00d5e7b3; #50
-		instruction_read = 32'h00d77533; #50
+// 	initial begin	
+// 		// R type
+// 		instruction_read = 32'h00940333; #50
+// 		instruction_read = 32'h413903b3; #50
+// 		instruction_read = 32'h015a12b3; #50
+// 		instruction_read = 32'h017b2e33; #50
+// 		instruction_read = 32'h019c4eb3; #50
+// 		instruction_read = 32'h013a53b3; #50
+// 		instruction_read = 32'h4154de33; #50
+// 		instruction_read = 32'h00d5e7b3; #50
+// 		instruction_read = 32'h00d77533; #50
 		
-		// I type
-		instruction_read = 32'h00040313; #50
-		instruction_read = 32'h00091393; #50
-		instruction_read = 32'h000a2293; #50
-		instruction_read = 32'h000b3e13; #50
-		instruction_read = 32'h000b4e13; #50
-		instruction_read = 32'h000c5e93; #50
-		instruction_read = 32'h400a5393; #50
-		instruction_read = 32'h0005e793; #50
-		instruction_read = 32'h00077513; #50
+// 		// I type
+// 		instruction_read = 32'h00040313; #50
+// 		instruction_read = 32'h00091393; #50
+// 		instruction_read = 32'h000a2293; #50
+// 		instruction_read = 32'h000b3e13; #50
+// 		instruction_read = 32'h000b4e13; #50
+// 		instruction_read = 32'h000c5e93; #50
+// 		instruction_read = 32'h400a5393; #50
+// 		instruction_read = 32'h0005e793; #50
+// 		instruction_read = 32'h00077513; #50
 		
-		// L type
-		instruction_read = 32'h005e8e03; #50
-		instruction_read = 32'h005e9e03; #50
-		instruction_read = 32'h005eae03; #50
-		instruction_read = 32'h005ece03; #50
-		instruction_read = 32'h005ede03; #50
+// 		// L type
+// 		instruction_read = 32'h005e8e03; #50
+// 		instruction_read = 32'h005e9e03; #50
+// 		instruction_read = 32'h005eae03; #50
+// 		instruction_read = 32'h005ece03; #50
+// 		instruction_read = 32'h005ede03; #50
 		
-		// S type
-		instruction_read = 32'h00c702a3; #50
-		instruction_read = 32'h00c712a3; #50
-		instruction_read = 32'h00c722a3; #50
+// 		// S type
+// 		instruction_read = 32'h00c702a3; #50
+// 		instruction_read = 32'h00c712a3; #50
+// 		instruction_read = 32'h00c722a3; #50
 		
-		// B type
-		instruction_read = 32'h06f9d263; #50
-		instruction_read = 32'h06d94263; #50
+// 		// B type
+// 		instruction_read = 32'h06f9d263; #50
+// 		instruction_read = 32'h06d94263; #50
 		
-		// JALR
-		instruction_read = 32'h014589e7; #50
-		instruction_read = 32'h03c906e7; #50
+// 		// JALR
+// 		instruction_read = 32'h014589e7; #50
+// 		instruction_read = 32'h03c906e7; #50
 		
-		// JAL
-		instruction_read = 32'h00c00a6f; #50
-		instruction_read = 32'h0820066f; #50
+// 		// JAL
+// 		instruction_read = 32'h00c00a6f; #50
+// 		instruction_read = 32'h0820066f; #50
 
-		// AUPIC
-		instruction_read = 32'h00000997; #50
-		instruction_read = 32'h00000697; #50
+// 		// AUPIC
+// 		instruction_read = 32'h00000997; #50
+// 		instruction_read = 32'h00000697; #50
 
-		// LUI
-		instruction_read = 32'h000004b7; #50
-		instruction_read = 32'h000007b7; #50
-		$stop;
-	end
-endmodule
+// 		// LUI
+// 		instruction_read = 32'h000004b7; #50
+// 		instruction_read = 32'h000007b7; #50
+// 		$stop;
+// 	end
+// endmodule
