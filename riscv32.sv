@@ -60,7 +60,7 @@ module riscv32#(parameter reset_pc=32'h00010000)  // On reset, set the PC to thi
 	always@(posedge clk) begin
 		if(reset) instruction_addr = 0;
 		else if((!flag || !pc_replace) && instruction_addr_upd) instruction_addr = instruction_addr+4-instruction_addr_upd;
-		else if((!flag || !pc_replace) && instruction_addr_upd) instruction_addr = instruction_addr+4;
+		else if((!flag || !pc_replace)) instruction_addr = instruction_addr+4;
 		else if(!pc_JALR) instruction_addr = instruction_addr+4-instruction_addr_upd+pc_new;
 		else begin instruction_addr = pc_new; end
 	end
@@ -200,20 +200,20 @@ module riscv32#(parameter reset_pc=32'h00010000)  // On reset, set the PC to thi
 	.WB_write_reg_out, .WB_reg_write_data_out, .WB_register_write_valid_out);
 endmodule
 
-module riscv32_testbench();
- 	logic clk, reset;
+// module riscv32_testbench();
+//  	logic clk, reset;
 
- 	riscv32 dut (.clk, .reset);
+//  	riscv32 dut (.clk, .reset);
 
- 	parameter CLOCK_PERIOD=100;
- 	initial begin
- 		clk <= 0;
- 		forever #(CLOCK_PERIOD/2) clk <= ~clk;
- 	end
+//  	parameter CLOCK_PERIOD=100;
+//  	initial begin
+//  		clk <= 0;
+//  		forever #(CLOCK_PERIOD/2) clk <= ~clk;
+//  	end
 	
- 	initial begin
-		reset = 1; #5000
- 		reset = 0; #5000
- 		$stop;
- 	end
-endmodule
+//  	initial begin
+// 		reset = 1; #5000
+//  		reset = 0; #5000
+//  		$stop;
+//  	end
+// endmodule

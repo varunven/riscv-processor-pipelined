@@ -3,8 +3,6 @@ module memory(
 	input logic [31:0] data_addr,
 	input logic [31:0] data_write,
 	input logic [3:0] data_write_byte,
-	input logic data_read_valid,
-	input logic data_write_valid,
 	output logic [31:0] data_read
 );
 	
@@ -26,7 +24,7 @@ module memory(
 		end
 		else begin
 			// write the data_write to memory
-			if(data_write_valid) begin
+			if(data_write_byte == 4'b0000) begin
 				if(data_write_byte[0]==1)
 					memory[pc0] = data_write[7:0];
 				if(data_write_byte[1]==1)
@@ -36,7 +34,7 @@ module memory(
 				if(data_write_byte[3]==1)
 					memory[pc3] = data_write[31:24];
 			end
-			else if(data_read_valid) begin
+			else begin
 				data_read = {memory[pc3],memory[pc2],memory[pc1],memory[pc0]};
 			end
 		end
@@ -48,12 +46,9 @@ endmodule
 // 	logic [31:0] data_addr;
 // 	logic [31:0] data_write;
 // 	logic [3:0] data_write_byte;
-// 	logic data_read_valid;
-// 	logic data_write_valid;
 // 	logic [31:0] data_read;
 
-// 	memory dut (.clk, .reset, .data_addr, .data_write, .data_write_byte,
-// 	.data_read_valid, .data_write_valid, .data_read);
+// 	memory dut (.clk, .reset, .data_addr, .data_write, .data_write_byte, .data_read);
 
 // 	parameter CLOCK_PERIOD=10;
 // 	initial begin
